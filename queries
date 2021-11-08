@@ -23,3 +23,19 @@ FROM
     PRODUCT PROD ON ORD.PROD_ID = PROD.PRO_ID
 WHERE
     ORD.CUS_ID = 2;
+    
+##Question No 5:
+SELECT 
+    *
+FROM
+    supplier
+WHERE
+    supp_id IN (SELECT 
+            productdetails.supp_id
+        FROM
+            productdetails
+        GROUP BY productdetails.supp_id
+        HAVING COUNT(productdetails.supp_id) > 1);
+        
+ ##Question No 6:
+ 
