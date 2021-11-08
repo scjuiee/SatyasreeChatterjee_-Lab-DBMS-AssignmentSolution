@@ -1,0 +1,25 @@
+##Question No 3
+SELECT 
+    customer.cus_gender, COUNT(customer.cus_gender) AS count
+FROM
+    customer
+        INNER JOIN
+    `order` ON customer.cus__id = `order`.cus_id
+WHERE
+    `order`.ord_amount >= 3000
+GROUP BY customer.cus_gender;
+
+##Question No 4
+SELECT 
+    ORD.ORD_ID,
+    ORD.ORD_AMOUNT,
+    ORD.ORD_DATE,
+    ORD.PROD_ID,
+    ORD.CUS_ID,
+    PROD.PRO_NAME
+FROM
+    `order-directory`.Order ORD
+        INNER JOIN
+    PRODUCT PROD ON ORD.PROD_ID = PROD.PRO_ID
+WHERE
+    ORD.CUS_ID = 2;
