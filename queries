@@ -70,3 +70,51 @@ WHERE
             `order-directory`.Order
         WHERE
             ORD_DATE > '2021-10-05');
+            
+##Question No 8:
+SELECT 
+    r.rat_ratstars, c.cus_name, s.supp_name
+FROM
+    rating AS r
+        INNER JOIN
+    customer AS c ON c.cus__id = r.cus_id
+        INNER JOIN
+    supplier AS s ON s.supp_id = r.supp_id
+    WHERE ROWNUM =3
+ORDER BY rat_ratstars DESC;
+
+##Question No 9:
+SELECT * FROM CUSTOMER WHERE CUS_NAME LIKE '%A' OR CUS_NAME like 'A%';
+
+##Question No 10:
+SELECT 
+    SUM(ORD_AMOUNT)
+FROM
+    `order-directory`.Order ORD
+WHERE
+    ORD.CUS_ID IN (SELECT 
+            CUS__ID
+        FROM
+            CUSTOMER
+        WHERE
+            CUS_GENDER = 'M');
+            
+ ##Question No 11:
+ select *
+from customer left outer join `order` on customer.cus__id = `order`.cus_id;
+
+##Question No 12:
+DELIMITER &&  
+ CREATE PROCEDURE categorize_supplier()
+ BEGIN
+ select supplier.supp_id,supplier.supp_name,rating.rat_ratstars,
+ CASE
+     WHEN rating.rat_ratstars > 4 THEN 'Genuine Supplier'
+     WHEN rating.rat_ratstars > 2 THEN 'Average Supplier'
+     ELSE 'Supplier should not be considered'
+ END AS verdict from rating inner join supplier on supplier.supp_id = rating.supp_id;
+ END &&  
+ DELIMITER ;  
+
+ call categorize_supplier();
+            
