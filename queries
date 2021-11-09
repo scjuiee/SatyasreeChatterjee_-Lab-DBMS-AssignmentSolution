@@ -38,4 +38,35 @@ WHERE
         HAVING COUNT(productdetails.supp_id) > 1);
         
  ##Question No 6:
- 
+ SELECT 
+    *
+FROM
+    CATEGORY
+WHERE
+    CAT_ID IN (SELECT 
+            CAT_ID
+        FROM
+            PRODUCT
+        WHERE
+            PRO_ID IN (SELECT 
+                    PROD_ID
+                FROM
+                    `order-directory`.Order
+                WHERE
+                    ORD_AMOUNT IN (SELECT 
+                            MIN(ORD_AMOUNT)
+                        FROM
+                            `order-directory`.Order)));
+                            
+##Question No 7:
+SELECT 
+    PRO_ID, PRO_NAME
+FROM
+    PRODUCT PRD
+WHERE
+    PRO_ID IN (SELECT 
+            PROD_ID
+        FROM
+            `order-directory`.Order
+        WHERE
+            ORD_DATE > '2021-10-05');
